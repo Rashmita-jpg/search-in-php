@@ -1,0 +1,28 @@
+   <form method="post">
+            <div class="searchitem">
+                <input type="text" class="searchterm" name="str" autocomplete="off" placeholder="      Search entire store here.........">
+                <button type="submit" name="submit" class="searchbtn">
+                      <i class="fa fa-search"></i>
+                   </button>
+                </form>
+                <?php
+         include ('connect.php');
+          if(isset($_POST['submit'])){
+               $str= mysqli_real_escape_string($conn,$_POST['str']);
+               $sql = "select id,filetitle,filedesc from alllaptop_post where filetitle like '%$str%' or
+               filedesc like '%$str%'";
+               
+
+               
+               $res=mysqli_query($conn,$sql);
+               if(mysqli_num_rows($res)>0){
+                 while($row=mysqli_fetch_assoc($res)){
+                     "<a href='details.php?id=".$row['id']."'>".$row['filetitle']."</a>";
+                    echo"<br>";
+                 }
+               }else{
+                   echo'no data found';
+               }
+          }
+         ?>
+</div>
